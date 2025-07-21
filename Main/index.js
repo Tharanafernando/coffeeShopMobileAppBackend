@@ -1,4 +1,4 @@
-import productRouter from "./API/Products.js";
+import productRouter from "../API/Products.js";
 import express from 'express'
 
 const app = express();

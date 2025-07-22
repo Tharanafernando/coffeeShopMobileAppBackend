@@ -1,15 +1,9 @@
 import { Router } from "express";
+import {createProduct, getAllProducts} from "../Application/Products.js";
 
 const productRouter = Router();
 
-productRouter.get('/',(req,res)=>{
-    console.log(req.body);
-    res.send(req.body)
-})
+productRouter.route('/').get(getAllProducts).post(createProduct);
 
-productRouter.post('/',(req,res)=>{
-    console.log("product created successfuly!");
-    res.send(req.body);
-})
 
 export default productRouter

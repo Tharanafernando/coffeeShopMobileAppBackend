@@ -13,7 +13,6 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 app.use('/api/products',productRouter)
-app.use('/api/category',categoryRouter)
 await databaseConnection()
 
 app.listen(port, () => {

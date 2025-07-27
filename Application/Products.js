@@ -16,18 +16,24 @@ export const getAllProducts = async(req,res)=>{
 
 export const createProduct = async (req,res)=>{
     try{
-        const createProduct = createProductDTO.parse(req.body)
-        const product = await productSchema.create(createProduct);
+        const createProduct = createProductDTO.safeParse(req.body)
+        if (!createProduct.success){
+            console.log(createProduct);
+            return res.status(400).json(createProduct);
+        }
+        const product = await productSchema.create(createProduct.data);
 
-        res.status(200).send(product);
+        return res.status(200).send(product);
     }catch(err){
         if (err instanceof ZodError){
-            res.status(400).send("Validation failed");
+            return res.status(400).send("Validation failed");
+        }else {
+            console.log(err);
+            return res.status(500).send({
+                message:err.message,
+            })
         }
-        console.log(err);
-        res.status(500).send({
-            message:err.message,
-        })
+
 
     }
 }
